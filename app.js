@@ -20,7 +20,9 @@ var commentRoutes    = require("./routes/comments"),
 app.use(bodyParser.urlencoded({extended: true})); //tell express to use bodyParser
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
-mongoose.connect("mongodb://localhost/yelp_camp");
+//mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect("mongodb://ray:Kea1469P@ds247290.mlab.com:47290/matlapane");
+// mongodb://ray:Kea1469P@ds247290.mlab.com:47290/matlapane
 app.use(methodOverride("_method"));
 app.use(flash());
 //seedDB();
