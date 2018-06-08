@@ -2,7 +2,29 @@ var express = require("express"),
     router = express.Router({mergeParams: true}),
     Campground  = require("../models/campground"),
     Comment     = require("../models/comment"),
-    middleware = require("../middleware");
+    middleware = require("../middleware"),
+    multer = require('multer');
+    
+var storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+var imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter})
+
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'twa-sa', 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 router.get("/", function(req, res){
     //Get all CampGrounds from DB
@@ -20,27 +42,25 @@ router.get("/new", middleware.isLoggedIn, function(req, res) {
 })
 
 //Create - add new campground to DB
-router.post("/", middleware.isLoggedIn, function(req, res){
-    //get data from user and add to campgrounds array
-    var name = req.body.name;
-    var price = req.body.price;
-    var image = req.body.image;
-    var desc = req.body.description;
-    var author = {
+router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, res) {
+    cloudinary.uploader.upload(req.file.path, function(result) {
+      // add cloudinary url for the image to the campground object under image property
+      req.body.campground.image = result.secure_url;
+      // add author to campground
+      req.body.campground.author = {
         id: req.user._id,
         username: req.user.username
-    }
-    var newCampGround = {name: name, price: price, image: image, description: desc, author: author}
-    //create a new campground and save to data base
-    Campground.create(newCampGround, function(err, newlyCreated){
-        if(err){
-            console.log(err);
-        } else {
-            //redirect back to campgrounds page
-            res.redirect("/campgrounds");
+      }
+      Campground.create(req.body.campground, function(err, campground) {
+        if (err) {
+          req.flash('error', err.message);
+          return res.redirect('back');
+        } else{
+        res.redirect('/campgrounds/' + campground.id);
         }
-    })
-})
+      });
+    });
+});
 
 //Show - shows more info about one campground
 router.get("/:id", function(req, res) {

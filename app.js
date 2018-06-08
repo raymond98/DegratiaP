@@ -12,6 +12,7 @@ var express               = require("express"),
     seedDB                = require("./seeds"),
     methodOverride        = require("method-override");
     
+require("dotenv").config();    
 //requring routes
 var commentRoutes    = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
@@ -23,7 +24,8 @@ app.use(express.static(__dirname + "/public"));
 
 mongoose.connect(process.env.DATABASEURL);
 
-//mongoose.connect("mongodb://localhost/yelp_camp");
+//these must be hidden
+ //mongoose.connect("mongodb://localhost/yelp_camp");
 //mongoose.connect("mongodb://ray:Kea1469P@ds247290.mlab.com:47290/matlapane");
 
 app.use(methodOverride("_method"));
