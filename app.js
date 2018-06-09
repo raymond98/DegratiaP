@@ -1,3 +1,5 @@
+require("dotenv").config(); 
+
 var express               = require("express"),
     app                   = express(),
     bodyParser            = require("body-parser"),
@@ -12,7 +14,6 @@ var express               = require("express"),
     seedDB                = require("./seeds"),
     methodOverride        = require("method-override");
     
-require("dotenv").config();    
 //requring routes
 var commentRoutes    = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
@@ -23,7 +24,6 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
 mongoose.connect(process.env.DATABASEURL);
-
 //these must be hidden
  //mongoose.connect("mongodb://localhost/yelp_camp");
 //mongoose.connect("mongodb://ray:Kea1469P@ds247290.mlab.com:47290/matlapane");
