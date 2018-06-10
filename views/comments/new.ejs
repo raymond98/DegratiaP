@@ -6,7 +6,7 @@
         
         <div style = "width: 30%; margin: 30px auto;">
             <!--form submit a post request to /campgrounds sending name and image data-->
-            <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
+            <form action="/<%= campground._id %>/comments" method="POST">
                 <div class = "form-group">
                     <input class = "form-control" type="text" name="comment[text]" placeholder="text">
                 </div>
