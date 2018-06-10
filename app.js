@@ -55,5 +55,5 @@ app.use("/", campgroundRoutes);
 app.use("/:id/comments", commentRoutes);
 
 app.listen(2700 || process.env.PORT, process.env.IP, function(){
-    console.log("DegratiaP Server is running");
+    console.log("DegratiaP Server is running on port 2700");
 })
