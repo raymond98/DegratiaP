@@ -230,13 +230,9 @@ router.delete('/:id', function(req, res) {
       return res.redirect("back");
     }
     try {
-        console.log(campground.imageId);
         await cloudinary.v2.uploader.destroy(campground.imageId);
-        console.log(campground.imageId1);
         await cloudinary.v2.uploader.destroy(campground.imageId1);
-        console.log(campground.imageId2);
         await cloudinary.v2.uploader.destroy(campground.imageId2);
-        console.log(campground.imageId3);
         await cloudinary.v2.uploader.destroy(campground.imageId3);
         campground.remove();
         req.flash('success', 'Campground deleted successfully!');
