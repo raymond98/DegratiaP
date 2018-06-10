@@ -8,7 +8,7 @@ var express = require("express"),
 //=============================
 // Comments section
 //=============================
-router.get("/new",isLoggedIn, function(req, res) {
+router.get("/new",middleware.isLoggedIn, function(req, res) {
     Campground.findById(req.params.id, function(err, campground){
         if(err || !campground){
             req.flash("error", "Campground not Found");
@@ -20,12 +20,12 @@ router.get("/new",isLoggedIn, function(req, res) {
     })
 })
 
-router.post("/", isLoggedIn, function(req, res){
+router.post("/", middleware.isLoggedIn, function(req, res){
     //lookup campground using ID
     Campground.findById(req.params.id, function(err, campground) {
         if(err){
             console.log(err);
-            res.redirect("/campgrounds");
+            res.redirect("/");
         } else {
             Comment.create(req.body.comment, function(err, comment){
                 if(err){
@@ -39,20 +39,12 @@ router.post("/", isLoggedIn, function(req, res){
                     
                     campground.comments.push(comment);
                     campground.save();
-                    res.redirect('/campgrounds/' + campground._id);
+                    res.redirect('/' + campground._id);
                 }
             })
         }
     })
 })
-
-//middleware function for allowing access
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/login");
-}
 
 // COMMENT EDIT ROUTE
 router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, res){
@@ -77,7 +69,7 @@ router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res){
       if(err){
           res.redirect("back");
       } else {
-          res.redirect("/campgrounds/" + req.params.id );
+          res.redirect("/" + req.params.id );
       }
    });
 });
@@ -90,7 +82,7 @@ router.delete("/:comment_id", middleware.checkCommentOwnership, function(req, re
            res.redirect("back");
        } else {
            req.flash("success", "Comment deleted")
-           res.redirect("/campgrounds/" + req.params.id);
+           res.redirect("/" + req.params.id);
        }
     });
 });

@@ -16,21 +16,17 @@ var express               = require("express"),
     
 //requring routes
 var commentRoutes    = require("./routes/comments"),
-    campgroundRoutes = require("./routes/campgrounds"),
-    indexRoutes      = require("./routes/index")
+    campgroundRoutes = require("./routes/campgrounds");
 
 app.use(bodyParser.urlencoded({extended: true})); //tell express to use bodyParser
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
+app.locals.moment = require("moment");
 
 mongoose.connect(process.env.DATABASEURL);
-//these must be hidden
- //mongoose.connect("mongodb://localhost/yelp_camp");
-//mongoose.connect("mongodb://ray:Kea1469P@ds247290.mlab.com:47290/matlapane");
 
 app.use(methodOverride("_method"));
 app.use(flash());
-//seedDB();
 
 //Passport configuration
 app.use(require("express-session")({
@@ -55,10 +51,9 @@ app.use(function(req, res, next){
    next();
 });
 
-app.use("/", indexRoutes);
-app.use("/campgrounds", campgroundRoutes);
-app.use("/campgrounds/:id/comments", commentRoutes);
+app.use("/", campgroundRoutes);
+app.use("/:id/comments", commentRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function(){
-    console.log("YelpCamp Server is running");
+    console.log("DegratiaP Server is running");
 })
