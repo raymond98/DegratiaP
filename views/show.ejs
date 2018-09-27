@@ -8,26 +8,28 @@
         </div>
             <div class="col-md-6">
                 <div class="well">
-            <div class="col-md-4 col-xs-4">
-                <div class="thumbnail">
-                    <img class="img-responsive" src="<%= campground.image1 %>">
-                </div>
-            </div>
-            <div class="col-md-4 col-xs-4">
-                <div class="thumbnail">
-                    <img class="img-responsive" src="<%= campground.image2 %>">
-                </div>
-            </div>
-            <div class="col-md-4 col-xs-4">
-                    <div class="thumbnail">
-                        <img class="img-responsive" src="<%= campground.image3 %>">
+                    <div class="col-md-4 col-xs-4">
+                        <div class="thumbnail">
+                            <img class="img-responsive" src="<%= campground.image1 %>">
+                        </div>
                     </div>
-            </div>
+                    <div class="col-md-4 col-xs-4">
+                        <div class="thumbnail">
+                            <img class="img-responsive" src="<%= campground.image2 %>">
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <div class="thumbnail">
+                            <img class="img-responsive" src="<%= campground.image3 %>">
+                        </div>
+                    </div>
                 <div class="caption-full">
-                    <h4 class="pull-right">R<%= campground.price %></h4>
+                    <div>
+                    <a href="/addToCart/<%= campground._id %>" class="btn btn-warning pull-right"> <i>R<%= campground.price %> Add to Cart</i></a>
                     <h4><a><%=campground.name%></a></h4>
+                    </div>
                     <p><%= campground.description %></p>
-                    <% if(currentUser && campground.author.id.equals(currentUser._id)){ %>
+                    <% if(currentUser && currentUser.isAdmin == true){ %>
                         <a class="btn btn-xs btn-warning" href="/<%= campground._id %>/edit">Edit</a>
                         <form class="delete-form" action="/<%= campground._id %>?_method=DELETE" method="POST">
                             <button class="btn btn-xs btn-danger">Delete</button>
@@ -41,13 +43,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <p>
-                                <strong><em>Submitted by: <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em></strong>
+                                <strong><em>Submitted by: <%= comment.author.email %></em></strong>
                             </p>
                                 <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
                             <p>
                                 <%= comment.text %> 
                             </p>
-                        <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                        <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin == true){ %>
                             <a class="btn btn-xs btn-warning" 
                                  href="/<%=campground._id %>/comments/<%=comment._id %>/edit">Edit</a>
                             <form class="delete-form" action="/<%=campground._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
@@ -61,4 +63,5 @@
         </div> 
     </div>
 </div>
+
 <% include ./partials/footer %>

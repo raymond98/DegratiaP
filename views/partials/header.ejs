@@ -7,41 +7,50 @@
     <title>DegratiaP</title>
     <!-- Make site responsive on mobile/tablet -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
-    <link type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
  </head>
 <body>
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse navbar-static-top navcolor" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-collapse-demo" aria-expanded="false">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
                 </button>
-                <a href="/" class="navbar-brand"><i class="fas fa-home"></i> DegratiaP</a>
+                <a href="/"><img src="https://res.cloudinary.com/twa-sa/image/upload/v1537210360/Logo_Degratia_5_150x50.jpg" class="img-fluid" alt="Responsive image"></a>
             </div>
-            <div class="collapse navbar-collapse" id="bs-collapse-demo">
-                <div class="nav navbar-nav navbar-right">
-                    <% if(!currentUser){ %>
+            <div class="collapse navbar-collapse" id="bs-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <% if(!currentUser ){ %>
                         <li><a href="/login"><i class="fas fa-user"></i> Login</a></li>
-                        <li><a href="/register"><i class="fas fa-user-plus"></i> Sign Up</a></li> 
+                        <li><a href="/register"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+                        <li><a href="/shopping"><i class="fas fa-cart"></i> Shopping-Cart 
+                        <% if(login.cart) { %>
+                        <span class="badge"><%= login.cart.totalQty %></span>
+                        <% } %>
+                        </a></li>
                     <% } else { %>
-                    <li><a href="#" >Signed in As <%= currentUser.username %></a></li>
+                    <li><a>Signed in As <%= currentUser.username %></a></li>
                     <li><a href="/logout"><i <i class="fas fa-sign-out-alt"></i></i> Log Out</a></li> 
-                    <li><a href = "/new">Add new products</a></li>
+                    <li><a href="/shopping"><i class="fas fa-shopping-cart"></i> Shopping-Cart 
+                        <% if(login.cart) { %>
+                        <span class="badge"><%= login.cart.totalQty %></span>
+                        <% } %>
+                        </a></li>
                     <% } %>
-                </div> 
+                    <% if(currentUser && currentUser.isAdmin == true){%>
+                    </i><li> <a href = "/new"><i class="fas fa-plus-square"></i> Add new products</a> </li>
+                    <% } %>
+                </ul> 
             </div>
         </div>
     </nav>
-        <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
     <div class="container">
         <% if(error && error.length > 0){ %>
             <div class="alert alert-danger" role="alert">

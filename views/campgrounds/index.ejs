@@ -1,18 +1,9 @@
 <% include ../partials/header %>
 
 <div class="row">
-    <!--<div class="col-md-3">-->
-            <!--<div class="list-group">-->
-            <!--    <li class="list-group-item active">Home Page</li>-->
-            <!--    <li class="list-group-item">Clothing</li>-->
-            <!--    <li class="list-group-item">Home Equipments</li>-->
-            <!--    <li class="list-group-item">Bags</li>-->
-            <!--    <li class="list-group-item">Shoes</li>-->
-            <!--</div>-->
-        <!--</div>-->
         <div class = "container">
             <div class = "col-md-12">
-                <header class="jumbotron">
+                <header class="jumbotron main">
                 </header>
                 <div class="row text-center" style = "display:flex; flex-wrap: wrap;">
                     <% campgrounds.forEach(function(campground){%>
@@ -23,8 +14,8 @@
                                  <h4><a href="/<%= campground._id %>"><%= campground.name %></a></h4>
                             </div>
                             <p>
-                                <a href="/<%= campground._id %>" class="btn btn-info" class="pull-left"> More Info</a>
-                                <a href="/<%= campground._id %>" class="btn btn-default" class="pull-right"> <i>R <%= campground.price %></i></a>
+                                <a href="/<%= campground._id %>" class="btn btn-info pull-left"> More Info</a>
+                                <a href="/addToCart/<%= campground._id %>" class="btn btn-success pull-right"> <i>R<%= campground.price %> Add to Cart</i></a>
                             </p>
                         </div>
                     </div>
@@ -33,5 +24,64 @@
             </div>
         </div>
     </div>
-
-<% include ../partials/footer %>
+    
+<hr class="clearfix w-100 d-md-none pb-3">
+<div class="container text-center text-md-left">
+          <div class="row">
+            <div class="col-md-3 mb-md-0 mb-3">
+              <ul class="list-unstyled">
+                  <li>
+                    <h5><a href="/about">About DegratiaP</a></h5>
+                  </li>
+                  <li>
+                    <p>Secure Payment Powered by:</p>
+                  </li>
+                  <li class="thumbnail">
+                    <img class="img-responsive" src="https://www.payfast.co.za/images/v2_logo.png">
+                  </li>
+              </ul>
+            </div>
+            <div class="col-md-3 mb-md-0 mb-3">
+                <h5 class="text-uppercase">Contact Us</h5>
+                <ul class="list-unstyled">
+                  <li>
+                    <p>Contact number: 0769256560</p>
+                  </li>
+                  <li>
+                    <p>Email: degratiap@gmail.com</p>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-3 mb-md-0 mb-3">
+                <h5 class="text-uppercase">Social Media</h5>
+                <ul class="list-unstyled">
+                  <li>
+                    <a href="https://www.facebook.com/DegratiaP">Facebook</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-3 mb-md-0 mb-3">
+                <h5 class="text-uppercase">Delivery</h5>
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-truck"></i><p> Coming soon</p>
+                  </li>
+                </ul>
+              </div>
+          </div>
+        </div>
+          <hr class="clearfix w-100 d-md-none pb-3">
+          <div class="footer-copyright text-center py-3">© 2018 Powered by:
+            <a href="www.twunite.com"> twunite </a> All rights reserved.
+          </div>
+          <!-- jQuery CDN -->
+        <script
+          src="https://code.jquery.com/jquery-3.1.1.min.js"
+          integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+          crossorigin="anonymous"></script>
+        
+        <!-- Bootstrap JS CDN -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      
+      </body>
+</html>

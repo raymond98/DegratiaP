@@ -7,6 +7,15 @@ body {
     border-radius:0px;
 }
 
+.navcolor {
+    background-color: black;
+}
+
+.cart-image{
+    height: 60px;
+    width: 60px;
+}
+
 .thumbnail .caption-full{
     padding: 9px;
 }
@@ -31,7 +40,7 @@ body {
     color: rgb(150, 12, 53);
 }
 
-.jumbotron{
+.jumbotron {
     background-image: url(https://res.cloudinary.com/twa-sa/image/upload/v1528582866/dagratiaP.jpg);
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -68,4 +77,22 @@ h2 {
 	text-align: center;
 	height: 60px;
 }
+.small-img{
+    height:100%;
+}
 
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.padding {
+    padding-bottom: 140px;
+}
+
+.padding1 {
+    padding-bottom: 220px;
+}

@@ -1,0 +1,45 @@
+<% include ../partials/header %>
+ 
+<div class="container">
+<div class="login-box">
+	<div class="box-header">
+		<h2>Checkout for: R<%=total%></h2>
+	</div>
+        <form action="https://www.payfast.co.za/eng/process" method="POST">
+            <input type="hidden" name="merchant_id" value="12732124">
+            <input type="hidden" name="merchant_key" value="sg9dj3q85vogs">
+            <input type="hidden" name="return_url" value="http://learnwithcolt-raymond59.c9users.io/success">
+            <input type="hidden" name="cancel_url" value="http://learnwithcolt-raymond59.c9users.io/cancel">
+            <input type="hidden" name="notify_url" value="http://learnwithcolt-raymond59.c9users.io/notify">
+            <br>
+            <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" id="name" type="text" name="name_first" placeholder="Name">
+            </div>
+            <div class="form-group">
+            <label for="surname">Surname</label>
+            <input class="form-control" id="surname" type="text" name="last_first" placeholder="Last name">
+            </div>
+            <div class="form-group">
+            <label for="email">Email</label>
+            <input class="form-control" id="email" type="text" name="email_address" placeholder="Email">
+            </div>
+            <div class="form-group">
+            <label for="callnumber">Cell number</label>
+			<input class="form-control" type="cellnumber" name="cell_number" placeholder="Cell number">
+            </div>
+            <br>
+            <input type="hidden" name="amount" value=<%=total%>>
+            <%if(products){%>
+            <% var bought = [];%>
+                <%products.forEach(function(product) {%>
+                        <%bought.push(product.item.name);%>
+                        <%bought.push(product.qty);%>
+                    <% });%>
+                    <input type="hidden" name="item_name" value="<%=bought %>">
+            <%}%>
+            <button type="submit" class="btn btn-success btn-lg">Buy now</button>
+        </form>
+    </div>
+</div>
+<% include ../partials/footer %>
